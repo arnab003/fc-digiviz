@@ -184,8 +184,12 @@
       </div>
     </div>
     <div id="chart-container" class="mt-5"></div>
-    <div id="chart-data-cont" class="mt-5 div-center div-hidden" style="position: relative;">
-      <h5>Chart Data</h5>
+    <div id="chart-data-cont" class="mt-4 div-center div-hidden" style="position: relative;">
+      <form action="https://codepen.io/pen/define" method="POST" target="_blank">
+        <input id="codepen-data" type="hidden" name="data" value="">
+        <input class="btn btn-dark" type="submit" value="View in CodePen">
+      </form>
+      <h5 class="mt-3">Chart Data</h5>
       <button type="button" id="copy" class="btn btn-dark" style="position: absolute; right: 0;">Copy</button>
       <pre><code id="chart-data" class="language-json"></code></pre>
     </div>

@@ -16,7 +16,7 @@ FusionCharts.ready(function () {
     };
   dataEditor.setValue(JSON.stringify(chartAttr, null, 2));
 
-  function hideLoader () {
+  function hideLoader() {
     $('#loader-wrapper').fadeOut();
     $('#main-wrapper').toggleClass('is-blurred');
   }
@@ -110,9 +110,37 @@ FusionCharts.ready(function () {
         "chartAttributes": JSON.parse(dataEditor.getValue())
       }
     );
-    var html = Prism.highlight(JSON.stringify(FusionCharts.items["fc-chart"].getJSONData(), null, 2), Prism.languages.json, 'json');
+    var chartData = FusionCharts.items["fc-chart"].getJSONData();
+    var html = Prism.highlight(JSON.stringify(chartData, null, 2), Prism.languages.json, 'json');
     $('#chart-data').html(html);
     $('#copy').text('Copy');
+
+    var jsStr = `FusionCharts.ready(function () {
+  var fusioncharts = new FusionCharts({
+    "type": "#charttype",
+    "renderAt": "chart-container",
+    "width": "700",
+    "height": "400",
+    "dataFormat": "json",
+    "dataSource": #datasource
+  });
+  fusioncharts.render();
+});`;
+
+    jsStr = jsStr.replace("#charttype", type);
+    jsStr = jsStr.replace("#datasource", JSON.stringify(chartData, null, 2));
+
+    var postData = {
+      title: "Fusion DigiViz",
+      description: "Table to Charts",
+      private: false, // true || false - When the Pen is saved, it will save as Private if logged in user has that privledge, otherwise it will save as public
+      editors: "101", // Set which editors are open. In this example HTML open, CSS closed, JS open
+      html: "<div id='chart-container' style='text-align: center; margin-top: 30px;'>FusionCharts will render here</div>",
+      js: jsStr,
+      head: "<meta name='viewport' content='width=device-width'>",
+      js_external: "https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js;https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js;https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.candy.js;https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.carbon.js;https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fint.js;https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.gammel.js;https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.ocean.js;https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.zune.js" // semi-colon separate multiple files
+    };
+    $('#codepen-data').attr('value', JSON.stringify(postData));
   }
 
   function convert(base64string, isURL) {
@@ -124,7 +152,7 @@ FusionCharts.ready(function () {
       formData.append("base64Image", base64string);
     }
     formData.append("language", "eng");
-    formData.append("apikey", "7f990be87f88957");
+    formData.append("apikey", "e71c691d8888957");
     formData.append("isTable", true);
     formData.append("detectOrientation", true);
     //Send OCR Parsing request asynchronously
@@ -216,6 +244,10 @@ FusionCharts.ready(function () {
             tableInteractivity();
           });
         }
+      },
+      error: function () {
+        console.log(arguments);
+        hideLoader();
       }
     });
   }
@@ -259,7 +291,7 @@ FusionCharts.ready(function () {
     };
   }
 
-  function clear () {
+  function clear() {
     FusionCharts.items["fc-chart"] && FusionCharts.items["fc-chart"].dispose();
     dataEditor.setValue(JSON.stringify(chartAttr, null, 2));
     $(".btn-group > .btn").removeClass("active");
