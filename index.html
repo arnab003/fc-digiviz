@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitieal//EN">
+<html lang="en">
+
+<head>
+  <title>Fusion DigiViz</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="./css/open-iconic-bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="./css/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="./css/cobalt.css">
+  <link rel="stylesheet" type="text/css" href="./css/prism.css">
+  <link rel="stylesheet" type="text/css" href="./css/main.css">
+
+  <script type="text/javascript" src="./js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="./js/codemirror.js"></script>
+  <script type="text/javascript" src="./js/cm-javascript.js"></script>
+  <script type="text/javascript" src="./js/prism.js"></script>
+  <script type="text/javascript" src="./js/fusioncharts/fusioncharts.js"></script>
+  <script type="text/javascript" src="./js/fusioncharts/themes/fusioncharts.theme.fusion.js"></script>
+  <script type="text/javascript" src="./js/fusioncharts/themes/fusioncharts.theme.candy.js"></script>
+  <script type="text/javascript" src="./js/fusioncharts/themes/fusioncharts.theme.carbon.js"></script>
+  <script type="text/javascript" src="./js/fusioncharts/themes/fusioncharts.theme.fint.js"></script>
+  <script type="text/javascript" src="./js/fusioncharts/themes/fusioncharts.theme.gammel.js"></script>
+  <script type="text/javascript" src="./js/fusioncharts/themes/fusioncharts.theme.ocean.js"></script>
+  <script type="text/javascript" src="./js/fusioncharts/themes/fusioncharts.theme.zune.js"></script>
+  <script type="text/javascript" src="./js/fusioncharts/jquery-fusioncharts.min.js"></script>
+  <script type="text/javascript" src="./js/main.js"></script>
+</head>
+
+<body>
+  <div id="loader-wrapper" class="loader">
+    <div style="position: fixed; width: 6%; top: 43%; left: 47%;">
+      <img src="./assets/FC_Loader.gif" style="max-width: 100%; height: auto;">
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg fixed-top navbar-light navbar-right shadow-sm bg-white">
+    <div class="container">
+      <a class="navbar-brand" href="https://www.fusioncharts.com/" target="_blank"><img src="./assets/fc-new-logo.png"
+          width="173px;" height="27px;" /></a>
+      <div class="navbar-nav ml-auto">
+        <span><strong>Fusion DigiViz</strong></span>
+      </div>
+    </div>
+  </nav>
+
+  <div id="main-wrapper" class="container is-blurred" style="margin-top: 100px;">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="font-light">Fusion DigiViz
+        </h2>
+        <h5>Digitalizing Data to Visualization</h5>
+        <p class="font-light mb-4">
+          A <strong>table</strong> is an effective method for presenting data when the precise values matter, whereas
+          figures
+          are better at illustrating general trends. A <strong>table visualization</strong> lets you display data from a
+          metric set using a tabular view. A table is also known as a <strong>data grid</strong>
+          or <strong>data table</strong>, and it is the default type of visualization that is used when first selecting
+          data if you did
+          not choose
+          another type.
+        </p>
+        <p>
+          This tool helps in converting your data table(in form of any image format) to a desired visualization. Tables
+          must be designed effectively.
+        </p>
+      </div>
+    </div>
+
+    <p>Provide Image:</p>
+    <div class="row">
+      <div class="col-12">
+        <div class="input-group mb-3">
+          <input type="url" class="form-control" id="url-inp" placeholder="Enter URL" aria-label="Enter URL">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="url-btn">Convert</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>Or</p>
+    <div class="row">
+      <div class="col-12">
+        <div class="input-group">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" name="file" id="fileUpload" accept="image/*"
+              capture="camera" />
+            <label class="custom-file-label" for="fileUpload" style="overflow: hidden;">Choose file</label>
+          </div>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="upload-btn">Convert</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+
+    <div id="content" class="div-hidden">
+      <div id="table" class="table-editable table-responsive">
+        <div class="div-center" style="background-color: #e4e5e7; padding: 10px;">
+          <h5 style="margin: 0;">Data Table</h5>
+        </div>
+        <table class="table table-hover" id="dataTable">
+          <!-- <tbody>
+            <tr>
+              <td contenteditable="true">Dessert (100g serving) </td>
+              <td contenteditable="true">Calories </td>
+              <td contenteditable="true">Fat (g) </td>
+              <td contenteditable="true">Carbs (g) </td>
+              <td contenteditable="true">Protein (g) </td>
+              <td><span class="oi oi-x"></span></td>
+              <td><span class="oi oi-arrow-thick-top"></span><span class="oi oi-arrow-thick-bottom"></span></td>
+            </tr>
+            <tr>
+              <td contenteditable="true">Frozen yogurt </td>
+              <td contenteditable="true">159 </td>
+              <td contenteditable="true">6.0 </td>
+              <td contenteditable="true">24 </td>
+              <td contenteditable="true">4.0 </td>
+              <td><span class="oi oi-x"></span></td>
+              <td><span class="oi oi-arrow-thick-top"></span><span class="oi oi-arrow-thick-bottom"></span></td>
+            </tr>
+            <tr>
+              <td contenteditable="true">Ice cream sandwich </td>
+              <td contenteditable="true">237 </td>
+              <td contenteditable="true">9.0 </td>
+              <td contenteditable="true">37 </td>
+              <td contenteditable="true">4.3 </td>
+              <td><span class="oi oi-x"></span></td>
+              <td><span class="oi oi-arrow-thick-top"></span><span class="oi oi-arrow-thick-bottom"></span></td>
+            </tr>
+            <tr>
+              <td contenteditable="true">Eclair </td>
+              <td contenteditable="true">262 </td>
+              <td contenteditable="true">16.0 </td>
+              <td contenteditable="true">24 </td>
+              <td contenteditable="true">6.0 </td>
+              <td><span class="oi oi-x"></span></td>
+              <td><span class="oi oi-arrow-thick-top"></span><span class="oi oi-arrow-thick-bottom"></span></td>
+            </tr>
+            <tr>
+              <td contenteditable="true">Cupcake </td>
+              <td contenteditable="true">305 </td>
+              <td contenteditable="true">3.7 </td>
+              <td contenteditable="true">67 </td>
+              <td contenteditable="true">3.9 </td>
+              <td><span class="oi oi-x"></span></td>
+              <td><span class="oi oi-arrow-thick-top"></span><span class="oi oi-arrow-thick-bottom"></span></td>
+            </tr>
+            <tr>
+              <td contenteditable="true">Gingerbread </td>
+              <td contenteditable="true">356 </td>
+              <td contenteditable="true">16.0 </td>
+              <td contenteditable="true">49 </td>
+              <td contenteditable="true">0.0 </td>
+              <td><span class="oi oi-x"></span></td>
+              <td><span class="oi oi-arrow-thick-top"></span><span class="oi oi-arrow-thick-bottom"></span></td>
+            </tr>
+          </tbody> -->
+        </table>
+      </div>
+      <div class="div-center mt-4">
+        <div>
+          <h5>Visualize Data<span id="cog-btn" class="oi oi-cog" style="margin: 0 0 0 8px; font-size: 15px;"></span>
+          </h5>
+        </div>
+        <div class="btn-group btn-group-lg" role="group">
+          <button type="button" charttype="mscolumn2d" class="btn btn-dark chart-btn">Column</button>
+          <button type="button" charttype="msbar2d" class="btn btn-dark chart-btn">Bar</button>
+          <button type="button" charttype="msline" class="btn btn-dark chart-btn">Line</button>
+          <button type="button" charttype="msarea" class="btn btn-dark chart-btn">Area</button>
+          <button type="button" charttype="pie2d" class="btn btn-dark chart-btn">Pie</button>
+        </div>
+      </div>
+    </div>
+    <div id="chart-container" class="mt-5"></div>
+    <div id="chart-data-cont" class="mt-5 div-center div-hidden" style="position: relative;">
+      <h5>Chart Data</h5>
+      <button type="button" id="copy" class="btn btn-dark" style="position: absolute; right: 0;">Copy</button>
+      <pre><code id="chart-data" class="language-json"></code></pre>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="chartAttrModal" tabindex="-1" role="dialog" aria-labelledby="chartAttrModalTitle"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="chartAttrModalTitle">Chart Level Attributes</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="editor"></div>
+          </div>
+          <div class="modal-footer">
+            <button id="reset-modal-btn" type="button" class="btn btn-primary">Reset</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
