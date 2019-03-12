@@ -103,7 +103,7 @@ FusionCharts.ready(function () {
       type: type,
       id: "fc-chart",
       width: "100%",
-      height: "400",
+      height: "450",
       dataFormat: "htmltable",
       renderAt: "chart-container"
     }, {
